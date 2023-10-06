@@ -18,5 +18,5 @@ Na pasta [app](src/app) se encontram os seguintes arquivos:
 - [AppRelatorioArvoreBinaria.java](src/app/AppRelatorioArvoreBinaria.java): App a ser executado para fazer o relatório da primeira etapa do trabalho.
 - [AppRelatorioAvl.java](src/app/AppRelatorioAvl.java): App a ser executado para fazer o relatório da terceira etapa do trabalho.
 
-  ## Link para relatório primeira etapa
+## Link para relatório primeira etapa
 [Relatório Primeira Etapa](https://docs.google.com/document/d/17ybxNopvWXIvWRniSXunENDHz-AkYAC-/edit)
