@@ -24,42 +24,40 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
 
         comparador = comp;
     }
-    
+
 
     @Override
     public void adicionar(T novoValor) {
         No<T> novoNo = new No<>(novoValor);
 
         if (raiz == null){
-            raiz = new No<>(novoValor);
+            raiz = novoNo;
 
         }else {
             No<T> atual = raiz;
-            No<T> pai;
 
             while (true){
-                pai = atual;
-                int comp = comparador.compare(novoValor, atual, atual.valor);
+                int comp = comparador.compare(novoValor, atual.getValor());
 
                 if (comp < 0){
-                    atual = atual.esquerda;
-                    if (atual == null){
-                        pai.esquerda = novoNo;
+                    if (atual.getFilhoEsquerda() == null){
+                        atual.setFilhoEsquerda(novoNo);
                         return;
                     }
+                    atual = atual.getFilhoEsquerda();
                 } else if (comp > 0) {
-                    atual = atual.direita;
-                    if (atual == null){
-                        pai.direita = novoNo;
+                    if (atual.getFilhoDireita()== null){
+                        atual.setFilhoDireita(novoNo);
                         return;
                     }
-                    
+                    atual = atual.getFilhoDireita();
+
                 }else {
                     return;
                 }
             }
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -67,18 +65,18 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
         No<T> atual = raiz;
 
         while (atual != null){
-            int comp = comparador.compare(valor, atual.valor);
+            int comp = comparador.compare(valor, atual.getValor());
 
             if(comp == 0){
-                return atual.valor; //Retorna o valor encontrado na arvore
+                return atual.getValor(); //Retorna o valor encontrado na arvore
             } else if (comp < 0) {
-                atual = atual.esquerda; // Procura na sub-árvore esquerda
+                atual = atual.getFilhoEsquerda(); // Procura na sub-árvore esquerda
             }else {
-                atual = atual.direita; // Procura na sub-árvore direita
+                atual = atual.getFilhoDireita(); // Procura na sub-árvore direita
             }
         }
         return null; // Valor não encontrado
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -86,9 +84,72 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
         No<T> atual = raiz;
         No<T> pai = null;
 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        while(atual != null){
+            int comp = comparador. compare(valor, atual.getValor());
 
+            if (comp == 0){
+                T valorRemovido = atual.getValor();
+
+                if(atual.getFilhoEsquerda() == null && atual.getFilhoDireita() == null){
+                    // O nó não tem filhos
+                    if (pai == null){
+                        raiz = null;
+                    } else if (pai.getFilhoEsquerda()==atual) {
+                        pai.setFilhoEsquerda(null);
+
+                    }else {
+                        pai.setFilhoDireita(null);
+                    }
+                } else if (atual.getFilhoEsquerda() != null && atual.getFilhoDireita()== null) {
+                    // O nó tem um filho à esquerda
+                    if (pai == null){
+                        raiz = atual.getFilhoEsquerda();
+                    } else if (pai.getFilhoEsquerda() == atual) {
+                        pai.setFilhoEsquerda(atual.getFilhoEsquerda());
+
+                    }else{
+
+                        pai.setFilhoDireita(atual.getFilhoEsquerda());
+                    }
+                } else if (atual.getFilhoEsquerda() == null && atual.getFilhoDireita() != null) {
+                    //O nó tem um filho à direita
+                    if (pai == null){
+                        raiz = atual.getFilhoDireita();
+                    } else if (pai.getFilhoEsquerda()==atual) {
+                        pai.setFilhoEsquerda(atual.getFilhoDireita());
+
+                    }else{
+                        pai.setFilhoDireita(atual.getFilhoDireita());
+                    }
+                }else{
+                    //O nó tem dois filhos
+                    No<T> sucessor = encontrarSucessor(atual.getFilhoDireita());
+                    atual.setValor(sucessor.getValor());
+                    remover(sucessor.getValor());
+
+                }
+
+                return valorRemovido;
+
+            }else if (comp <0){
+                pai = atual;
+                atual = atual.getFilhoEsquerda();
+
+            }else {
+                pai = atual;
+                atual = atual.getFilhoDireita();
+            }
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+    }
+    private No<T> encontrarSucessor(No<T> atual){
+        while (atual.getFilhoEsquerda() != null){
+            atual = atual.getFilhoEsquerda();
+
+        }
+        return atual;
+    }
     @Override
     public int altura() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
