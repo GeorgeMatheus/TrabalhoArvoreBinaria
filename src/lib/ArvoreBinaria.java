@@ -152,9 +152,23 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
     }
     @Override
     public int altura() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return calAlt(raiz);
+
     }
-       
+    private int calAlt(No<T>no){
+        if (no == null){
+            return -1;
+        }
+        int altE = calAlt(no.getFilhoEsquerda());
+        int altD = calAlt(no.getFilhoDireita());
+
+        if (altE > altD){
+            return altE + 1;
+        }else {
+            return altD + 1;
+        }
+    }
+
     
     @Override
     public int quantidadeNos() {
