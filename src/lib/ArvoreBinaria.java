@@ -7,6 +7,7 @@ package lib;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Stack;
 
 /**
  *
@@ -20,10 +21,7 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
     protected No<T> atual = null;
     private ArrayList<No<T>> pilhaNavegacao = null;
 
-    public ArvoreBinaria(Comparator<T> comp) {
-
-        comparador = comp;
-    }
+    public ArvoreBinaria(Comparator<T> comp) {comparador = comp;}
 
 
     @Override
@@ -187,12 +185,63 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
 
     @Override
     public String caminharEmNivel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.    
+        if (raiz == null){
+            return "[]";
+        }
+
+        StringBuilder result = new StringBuilder("[");
+        ArrayList<No<T>> pilhaNavegacao = new ArrayList<>();
+        pilhaNavegacao.add(raiz);
+
+        while (!pilhaNavegacao.isEmpty()){
+            No<T> no = pilhaNavegacao.remove(0);
+            result.append(no.getValor());
+
+            if(no.getFilhoEsquerda() != null){
+                pilhaNavegacao.add(no.getFilhoEsquerda());
+            }
+            if (no.getFilhoDireita() != null){
+                pilhaNavegacao.add(no.getFilhoDireita());
+            }
+
+            if (!pilhaNavegacao.isEmpty()){
+                result.append(" ");
+            }
+        }
+        result.append("]");
+        return result.toString();
+
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
     public String caminharEmOrdem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.    
+        if (raiz == null){
+            return "[]";
+        }
+
+        StringBuilder result = new StringBuilder("[");
+        Stack<No<T>> pilha = new Stack<>();
+        No<T> atual = raiz;
+
+        while (true){
+            while (atual != null){
+                pilha.push(atual);
+                atual=atual.getFilhoEsquerda();
+            }
+
+            if (pilha.isEmpty()){
+                break;
+            }
+
+            atual= pilha.pop();
+            result.append(atual.getValor()).append("\n");
+            atual = atual.getFilhoDireita();
+        }
+
+        result.append("]");
+        return result.toString();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
