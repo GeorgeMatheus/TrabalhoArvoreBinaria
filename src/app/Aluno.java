@@ -14,7 +14,7 @@ public class Aluno  {
 
     public Aluno(int matricula, String nome){
         this.matricula = matricula;
-        this.nome = nome;        
+        this.nome = nome;
     }
 
     //Sobrescrevi o método toString de forma a imprimir matricula e nome do aluno.
