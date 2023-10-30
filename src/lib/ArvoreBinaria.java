@@ -81,7 +81,7 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
 
     @Override
     public T pesquisar(T valor) {
-        No<T> atual = raiz;
+        No<T> atual = this.raiz;
 
         while (atual != null){
             int comp = comparador.compare(valor, atual.getValor());

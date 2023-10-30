@@ -71,7 +71,7 @@ public class No<T> {
     private int obterAltura(No<T> no){
         // se o nó for nulo a altura é 0
         if (no == null){
-            return 0;
+            return -1;
         }
         //recursivamente calcula a altura da subarvore esquerda
         int altE = obterAltura(no.getFilhoEsquerda());
