@@ -34,30 +34,46 @@ public class ArvoreAVL<T> extends ArvoreBinaria<T> {
     private No<T> rotacaoEsquerda(No<T> r){
         No<T> f = r.getFilhoDireita();
         r.setFilhoDireita(f.getFilhoEsquerda());
-        r.setFilhoEsquerda(r);
+        f.setFilhoEsquerda(r);
 
+        // Atualização das alturas do nó e do nó filho (f)
+        r.altura();
+        f.altura();
         return f;
     }
 
     private No<T> rotacaoDireita(No<T> r){
         No<T> f = r.getFilhoEsquerda();
         r.setFilhoEsquerda(f.getFilhoDireita());
-        r.setFilhoDireita(r);
+        f.setFilhoDireita(r);
 
+        // Atualização das alturas do nó e do nó filho (f)
+        r.altura();
+        f.altura();
         return f;
     }
 
     private No<T> rotacaoDireitaEsquerda(No<T> r) {
         r.setFilhoDireita(rotacaoDireita(r.getFilhoDireita()));
+        r = rotacaoEsquerda(r);
+        // Atualização das alturas do nó e seus filhos
+        r.altura();
+        r.getFilhoDireita().altura();
+        r.getFilhoEsquerda().altura();
 
-        return rotacaoEsquerda(r);
+        return r ;
     }
 
 
     private No<T> rotacaoEsquerdaDireita(No<T> r){
         r.setFilhoEsquerda(rotacaoEsquerda(r.getFilhoEsquerda()));
+        r =rotacaoDireita(r);
+        // Atualização das alturas do nó e seus filhos
+        r.altura();
+        r.getFilhoDireita().altura();
+        r.getFilhoEsquerda().altura();
 
-        return rotacaoDireita(r);
+        return r ;
     }
 
 }

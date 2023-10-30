@@ -71,7 +71,7 @@ public class No<T> {
     private int obterAltura(No<T> no){
         // se o nó for nulo a altura é 0
         if (no == null){
-            return -1;
+            return 0;
         }
         //recursivamente calcula a altura da subarvore esquerda
         int altE = obterAltura(no.getFilhoEsquerda());
@@ -82,6 +82,9 @@ public class No<T> {
         }else {
             return altD + 1;
         }
+
+     //   return Math.max(altE, altD) + 1;
+
     }
 
     public int fatorBalanceamento(){
