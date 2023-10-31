@@ -20,3 +20,8 @@ Na pasta [app](src/app) se encontram os seguintes arquivos:
 
 ## Link para relatório primeira etapa
 [Relatório Primeira Etapa](https://docs.google.com/document/d/17ybxNopvWXIvWRniSXunENDHz-AkYAC-/edit)
+
+## Link para relatório segunda etapa
+[Relatório Segunda Etapa](https://docs.google.com/document/d/1SiAuBM3xGNzEusX9hz0xa1hir-UZq0rO/edit?usp=sharing&ouid=109967906405140666554&rtpof=true&sd=true)
+
+
